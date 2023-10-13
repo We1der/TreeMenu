@@ -1,0 +1,19 @@
+{% load user_tags %}
+{% for menu_item in menu_items %}
+  <li
+      {% if not menu_item.item_parent %}
+        class="nav-item dropdown"
+      {% else %}
+        class="dropdown-submenu"
+      {% endif %}
+  >
+      <a href="{{menu_item.url}}" class="dropdown-item">
+        {{ menu_item.name }}
+      </a>
+      {% if menu_item.children.exists %}
+          <ul class="dropdown-menu">
+            {% draw_menu menu_item %}
+          </ul>
+      {% endif %}
+  </li>
+{% endfor %}
